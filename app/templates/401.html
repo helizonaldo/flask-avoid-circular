@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Unauthorized{% endblock %}
+
+{% block head %}
+
+    {{ super() }}
+
+    <style type="text/css">
+        body{
+			/* all: unset; */
+			background-color: #F9FAFC!important;
+			height: 100%;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="text-center">
+        <h1>401</h1>
+        <p>You are not authorized to see this page. Please <a href="{{ url_for('auth.signin')}}">log in</a> or
+            <a href="{{ url_for('auth.signup') }}">create a new account</a>.
+        </p>
+    </div>
+</div>
+{% endblock %}

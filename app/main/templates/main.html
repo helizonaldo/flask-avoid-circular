@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+
+{% block title %}Flask Example{% endblock %}
+
+{% block head %}
+
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/toastr.min.css') }}"  media="screen"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/bootstrap-datetimepicker.min.css') }}"  media="screen"/>
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='css/styles.css') }}"  media="screen"/>
+
+    <style type="text/css">
+        body{
+            background-color:#F9FAFC !important;
+        }
+    </style>
+{% endblock %}
+
+
+
+{% block content %}
+<div class="wrapper">
+
+
+
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="img logo rounded-circle mb-5" style="background-image: url({{ url_for('main.getImage',image='{}.jpg'.format(current_user.id)) }});"></a>
+                <!-- <h3>Helizonaldo Morais</h3> -->
+            </div>
+    
+            <ul class="list-unstyled components">
+                <p>{{user.username}}</p>
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-user-cog"></i> Administrator</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#"><i class="far fa-user"></i> Users</a>
+                        </li>
+                    </ul>
+                </li>
+    
+                <li>
+                    <a href="#"><i class="fas fa-key"></i> Password</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('auth.logout')}}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+            </ul>        
+        </nav>
+
+        <div id="content" class="container-fluid h-100 px-0">
+
+
+            <nav class="mb-1 navbar navbar-expand-lg navbar-dark  bg-primary">
+      
+                <a href="#" class="navbar-brand">
+                    <img src="{{ url_for('static', filename='images/icon.svg') }}" width="25" alt="" class="d-inline-block align-middle mr-2">
+                    <span class="font-weight-bold">Sticky Notes</span>
+                </a>    
+                
+                
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                    
+                        <li class="nav-item active">
+                            <a class="nav-link btn btn-info" data-toggle="modal" data-target="#exampleModal">
+                                <i class="far fa-file"></i> New
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>    
+            
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle pointer ml-2" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-sort-amount-down"></i> Order by
+                            </a>
+                            <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#"><i class="fas fa-hourglass-end"></i> Very late</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-hourglass-half"></i> Late</a>
+                                <a class="dropdown-item" href="#"><i class="far fa-calendar-check"></i> Done</a>
+                            </div>
+                        </li>
+                    </ul>
+                  
+                    <ul class="navbar-nav ml-auto nav-flex-icons">
+                        
+                        <li class="nav-item active ml-2">
+                            <a id="countTodo" class="nav-link waves-effect waves-light active"> {{ todos|length }} 
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </li>      
+                        
+                        <li class="nav-item active ml-2">
+                            <a class="nav-link waves-effect waves-light active" href="#" >
+                                <i class="fas fa-cog"></i>
+                            </a>
+                        </li>      
+            
+                        {% if avatar %}
+                            <li class="nav-item dropdown avatar active ml-2">
+                                <a class="nav-link dropdown-toggle p-0 pointer" id="sidebarCollapse">
+                                    {{picture}}
+                                    <img src="{{ url_for('main.getImage',image='{}.jpg'.format(current_user.id)) }}" class="rounded-circle z-depth-0" alt="avatar" height="35">
+                                </a>
+                            </li>      
+                        {% else %}
+                            <li class="nav-item dropdown active ml-2">
+                                <a class="nav-link dropdown-toggle pointer" id="navbarDropdownMenuLink-333" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-user"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+                                    <a class="dropdown-item" href="#">Helizonaldo</a>
+                                    <a class="dropdown-item" href="{{ url_for('auth.logout')}}">Logout</a>
+                                </div>
+                            </li>
+                        {% endif %}
+                    </ul>
+                  
+                </div>
+            </nav>
+            
+
+
+        </div>
+
+
+        <div class="overlay"></div>	
+
+
+
+<!--        
+
+
+<div class="form-group row">
+  <label for="example-datetime-local-input" class="col-2 col-form-label">Date and time</label>
+  <div class="col-10">
+    <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
+  </div>
+</div>
+
+
+    <ul>
+        <li class="xs">1 column xs</li>
+        <li class="sm">2 column sm</li>
+        <li class="md">3 column md</li>
+        <li class="lg">4 column lg</li>
+        <li class="xl">5 column xl</li>
+    </ul>
+-->
+
+
+  
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New note</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ url_for('main.addTodo') }}" method="POST">
+                <div class="modal-body">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Date Time:</label>
+                        <div class='input-group date' id='datetimepicker1'>
+                            {{ form.date_at(class="form-control") }}
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            {% for error in form.date_at.errors %}
+                                <span style="color:red">{{ error}}</span>
+                            {% endfor %}
+                        </div>
+                    </div>              
+                    <div class="form-group">
+                        <label for="title" class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-form-label">Message:</label>
+                        <textarea class="form-control" name="description" id="description"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type=submit id="submit" name="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row px-md-5 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5" style="padding-top: 60px;">
+    {% from 'components/todos.html' import todos_list %}
+    {{ todos_list(todos) }}
+</div>
+
+
+</div>
+{% endblock content %}
+
+{% block script %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/lib/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/toastr.min.js') }}"></script>
+    <script src="{{ url_for('main.static', filename='js/script.js') }}"></script>
+    <script>
+        //https://codeseven.github.io/toastr/
+        
+        
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+        });
+                
+    </script>
+{% endblock %}
+

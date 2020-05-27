@@ -1,0 +1,24 @@
+{% macro todos_list(todos) %}
+
+	{% for todo in todos %}
+		{% set status='bg-success' %}
+		{% set dias = todo.created_at|countdays %}
+		{% set status=(status,'bg-warning')[dias>7]%}
+		{% set status=(status,'bg-danger')[dias>30]%}
+		{% set status=(status,'bg-secondary')[todo.completed]%}
+		<div class="col mt-3 " id="todo-{{todo.id}}">
+			<div class="card text-white {{status}} mb-3 center-block" style="max-width: 18rem; height: 250px;">
+				<div class="card-header">
+					<a class="submit text-light ml-2" href="{{url_for('main.delTodo', id=todo.id, _external=True)}}" style="font-size: 0.5rem;"><i class="far fa-3x fa-trash-alt" aria-hidden="true"></i></a>
+					<a class="submit text-light ml-2" href="#" style="font-size: 0.5rem;"><i class="far fa-3x fa-calendar-check"></i></a>
+					<a class="submit text-light ml-2" href="#" style="font-size: 0.5rem;"><i class="far fa-3x fa-calendar"></i></a>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">{{ todo.title }}</h5>
+					<p class="card-text">{{ todo.description }}</p>
+				</div>	
+			</div>
+		</div>
+	{% endfor %}
+
+{% endmacro %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="Helizonaldo Morais">	
+		{% block head %}
+			<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/icon.svg') }}" sizes="16x16">				
+
+			<link rel="stylesheet" href="{{ url_for('static', filename='css/lib/bootstrap.min.css') }}"  media="screen"/>
+			<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"  media="screen"/>			
+
+			<title>{% block title %}{% endblock %}</title>
+		{% endblock %}
+	</head>
+
+<body>
+
+
+	{% block content %}	
+		<div class="container-fluid h-100 px-0">	
+
+	{% endblock content %}
+	
+	{% block script %}
+		<script src="{{ url_for('static', filename='js/lib/jquery-3.4.1.min.js') }}"></script>	
+		<script src="{{ url_for('static', filename='js/lib/moment.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/lib/bootstrap.min.js') }}"></script>	
+		<script src="{{ url_for('static', filename='js/lib/all.js') }}"></script>
+	{% endblock script %}
+
+</body>
+</html>
